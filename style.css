@@ -20,15 +20,23 @@
 }
 
 
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+
 body {
     background: var(--black);
     color: var(--off-white);
     font-family: var(--sans);
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
 }
 
 
 button {
     font: inherit;
+    touch-action: manipulation;
 }
 
 
@@ -726,6 +734,29 @@ button {
 
 @media (max-width: 768px) {
 
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    button,
+    .enter-button,
+    .scroll-button,
+    .archive-btn,
+    .fight-btn,
+    .continue-button,
+    .classified-button {
+        min-height: 48px;
+        touch-action: manipulation;
+    }
+
+    .chapter {
+        overscroll-behavior: contain;
+    }
+
     .archive-header,
     .archive-footer {
         font-size: 8px;
@@ -761,8 +792,8 @@ button {
 
 
     .section-title {
-        margin-left: 0;
-
+        margin-left: 12px;
+        margin-right: 12px;
         margin-bottom: 50px;
     }
 
@@ -773,18 +804,17 @@ button {
 
 
     .yearbook-layout {
-        width: 100%;
-
+        width: calc(100% - 12px);
+        margin-left: 6px;
+        margin-right: 6px;
         grid-template-columns: 1fr;
-
         gap: 70px;
     }
 
 
     .yearbook-photo-wrapper {
-        width: 90%;
-
-        margin: auto;
+        width: min(100%, 90vw);
+        margin: 0 auto;
     }
 
 
@@ -793,8 +823,138 @@ button {
     }
 
 
+    .metadata div {
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+
+    .big-caption {
+        font-size: clamp(28px, 8vw, 38px);
+    }
+
+
     .continue-wrapper {
+        width: calc(100% - 12px);
+        margin: 40px 6px 0;
+        gap: 18px;
+    }
+
+    .scroll-button {
+        width: 52px;
+        height: 52px;
+        font-size: 22px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .opening {
+        padding-top: 72px;
+        padding-bottom: 96px;
+    }
+
+    .archive-container {
+        width: min(100%, 88vw);
+    }
+
+    .archive-header,
+    .archive-footer {
+        font-size: 7px;
+        letter-spacing: 0.08em;
+    }
+
+    .archive-header {
+        top: 18px;
+    }
+
+    .archive-footer {
+        bottom: 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .archive-access {
         width: 100%;
+        align-items: flex-start;
+    }
+
+    .opening h1 {
+        font-size: clamp(36px, 14vw, 60px);
+        line-height: 0.9;
+        margin-bottom: 22px;
+    }
+
+    .status-line {
+        margin-bottom: 16px;
+        font-size: 9px;
+        gap: 8px;
+    }
+
+    .archive-info {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .archive-info strong {
+        font-size: 12px;
+    }
+
+    .warning {
+        display: block;
+        width: 100%;
+        line-height: 1.5;
+        font-size: 8px;
+        padding: 8px 10px;
+    }
+
+    .enter-button {
+        width: 100%;
+        justify-content: space-between;
+        padding: 14px 15px;
+        gap: 12px;
+    }
+
+    .archive-access .enter-button {
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 380px) {
+
+    .archive-container {
+        width: min(100%, 90vw);
+    }
+
+    .archive-header,
+    .archive-footer {
+        font-size: 6px;
+        letter-spacing: 0.06em;
+    }
+
+    .opening h1 {
+        font-size: clamp(32px, 13vw, 50px);
+    }
+
+    .status-line,
+    .label,
+    .progress-text,
+    .warning {
+        letter-spacing: 0.08em;
+    }
+
+    .warning {
+        font-size: 7px;
+    }
+
+    .enter-button {
+        font-size: 9px;
+        letter-spacing: 0.08em;
     }
 
 }
@@ -1135,7 +1295,9 @@ button {
 
     color: #e9e5dc;
 
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
+    isolation: isolate;
 }
 
 
@@ -1243,6 +1405,10 @@ button {
 
     margin: auto;
 
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+
     border: 1px solid #383632;
 
     background: #10100e;
@@ -1288,6 +1454,7 @@ button {
 .terminal-body button {
     margin-top: 30px;
 
+    min-height: 48px;
     padding: 14px 18px;
 
     border: 1px solid #635d54;
@@ -1304,9 +1471,16 @@ button {
 
     letter-spacing: 0.06em;
 
+    position: relative;
+    z-index: 20;
+    pointer-events: auto;
+
+    touch-action: manipulation;
+
     transition:
         background 0.3s ease,
-        color 0.3s ease;
+        color 0.3s ease,
+        transform 0.2s ease;
 }
 
 
@@ -1314,6 +1488,25 @@ button {
     background: var(--red);
 
     color: #090908;
+}
+
+@media (max-width: 480px) {
+    .access-terminal {
+        width: min(100%, 92vw);
+    }
+
+    .terminal-body {
+        padding: 24px 18px;
+    }
+
+    .terminal-body button {
+        display: block;
+        width: 100%;
+        margin-top: 22px;
+        min-height: 52px;
+        padding: 16px 18px;
+        font-size: 11px;
+    }
 }
 
 
@@ -1886,6 +2079,67 @@ button {
     color: white;
 }
 
+@media (max-width: 768px) {
+    .sempro-section {
+        padding: 90px 20px 80px;
+    }
+
+    .sempro-container > h1 {
+        font-size: clamp(42px, 18vw, 82px);
+        letter-spacing: -4px;
+        margin-top: 20px;
+    }
+
+    .sempro-intro {
+        font-size: 16px;
+    }
+
+    .thesis-status {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin: 40px 0;
+    }
+
+    .status-item {
+        padding: 15px 12px;
+    }
+
+    .sempro-content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        align-items: start;
+    }
+
+    .sempro-photo-wrapper {
+        order: -1;
+        width: 100%;
+    }
+
+    .sempro-photo {
+        max-height: 420px;
+        width: 100%;
+    }
+
+    .sempro-story h2 {
+        font-size: clamp(28px, 8vw, 42px);
+        margin: 14px 0 18px;
+    }
+
+    .sempro-story p {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .quote-box {
+        margin-top: 20px;
+        padding: 12px 16px;
+    }
+
+    .sempro-section .continue-wrapper {
+        margin-top: 60px;
+    }
+}
+
 
 /* =========================================
    CHAPTER 05 — SIDANG / FINAL BOSS
@@ -2075,20 +2329,58 @@ button {
 }
 
 .fight-btn {
-    padding: 18px 40px;
+    padding: 18px 44px;
     border: 1px solid #ff5555;
-    background: transparent;
+    background: rgba(255, 85, 85, 0.12);
+    box-shadow: 0 0 0 1px rgba(255, 85, 85, 0.2), 0 18px 30px rgba(0, 0, 0, 0.25);
     color: white;
     font-family: monospace;
     font-weight: bold;
     letter-spacing: 2px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 .fight-btn:hover {
     background: #ff5555;
     color: black;
+    transform: translateY(-2px);
+}
+
+.boss-result .archive-btn {
+    margin-top: 28px;
+    padding: 16px 28px;
+    border: 1px solid #ff5555;
+    background: rgba(255, 85, 85, 0.12);
+    color: white;
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.25);
+    font-family: monospace;
+    letter-spacing: 2px;
+}
+
+.boss-result .archive-btn:hover {
+    background: #ff5555;
+    color: black;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+    .boss-actions {
+        margin-top: 28px;
+    }
+
+    .fight-btn {
+        width: 100%;
+        padding: 18px 20px;
+        font-size: 11px;
+        letter-spacing: 2px;
+    }
+
+    .boss-result .archive-btn {
+        width: 100%;
+        padding: 18px 20px;
+        font-size: 11px;
+    }
 }
 
 

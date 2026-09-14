@@ -334,6 +334,9 @@ if (
             accessEvidence.disabled =
                 true;
 
+            accessTerminal.style.pointerEvents =
+                "none";
+
             accessTerminal.style.transition =
                 "opacity 0.5s ease, transform 0.5s ease";
 
@@ -342,6 +345,19 @@ if (
 
             accessTerminal.style.transform =
                 "translateY(-15px)";
+
+
+            const aibChapter =
+                document.getElementById(
+                    "aib"
+                );
+
+            if (aibChapter) {
+                aibChapter.scrollTo({
+                    top: 0,
+                    behavior: "auto"
+                });
+            }
 
 
             setTimeout(() => {
@@ -353,6 +369,11 @@ if (
                 evidenceArea.classList.remove(
                     "hidden"
                 );
+
+                evidenceArea.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
 
             }, 500);
 
